@@ -1,0 +1,50 @@
+<Grid x:Name="grid">
+        <Grid.Background>
+            <ImageBrush ImageSource="3.jpg" TileMode="FlipXY"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="150"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="140"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="160"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="startButon" Content="Start" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="74" Grid.Column="1" Margin="32,38,34,92" Height="20" Click="startButon_Click"/>
+        <ProgressBar x:Name="status" Width="400" Height="28" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" />
+        <ProgressBar x:Name="statusMass" Margin="0,38,0,0" Width="400" Height="23" Value="1" Maximum="1.0" Style="{StaticResource Basic}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Canvas x:Name="playArea" Grid.ColumnSpan="3" MouseMove="playArea_MouseMove" Grid.Column="1" >
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF42FF42"/>
+                    <GradientStop Color="#FF304887" Offset="0.305"/>
+                    <GradientStop Color="#FF26FF26" Offset="1"/>
+                    <GradientStop Color="#FF222E55" Offset="0.715"/>
+                    <GradientStop Color="#FF345AC1" Offset="0.052"/>
+                    <GradientStop Color="#FF0B2599" Offset="0.974"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <StackPanel x:Name="human" Height="56" Canvas.Left="10" Canvas.Top="10" Width="53" RenderTransformOrigin="0.5,0.5" MouseDown="human_MouseDown" >
+                <StackPanel.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.06"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </StackPanel.RenderTransform>
+                <ContentControl x:Name="myRobot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="56" Template="{DynamicResource s3po}"/>
+            </StackPanel>
+        </Canvas>
+        <StackPanel Grid.Column="3" Grid.Row="1">
+            <TextBlock TextWrapping="Wrap" Height="150">
+                <TextBlock.Background>
+                    <ImageBrush ImageSource="box.png"/>
+                </TextBlock.Background>
+            </TextBlock>
+        </StackPanel>
+        <ToggleButton Style="{StaticResource ToggleButton_Occupado}" Margin="36,63,34,13" Grid.Column="1" Grid.Row="1"/>
+
+    </Grid>
