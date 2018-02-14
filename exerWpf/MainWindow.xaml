@@ -11,6 +11,7 @@
         WindowStyle="None"
         Title="PixelWars" KeyDown="Window_KeyDown" Height="589" Width="900">
     <Window.Resources>
+
         <RadialGradientBrush x:Key="ToggleButtonBorderBrush_forOccupado" GradientOrigin="0,0" RadiusX="0.8" RadiusY="0.8">
             <GradientStop Color="#FF7D7D7D" Offset="1"></GradientStop>
             <GradientStop Color="#FF535353" Offset="0"></GradientStop>
@@ -52,6 +53,95 @@
             <GradientStop Color="#FF1B1B1B"/>
         </LinearGradientBrush>
 
+        <LinearGradientBrush x:Key="ControlBackgroundNormal" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FF605F5F" Offset="0"/>
+            <GradientStop Color="#FF030303" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ControlBorderBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FF686868" Offset="0.204" />
+            <GradientStop Color="#FF686868" Offset="0.864" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ControlActiveBorderBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <GradientStop Color="#FF1D83BE" Offset="0.204" />
+            <GradientStop Color="#FF1ECDA7" Offset="0.864" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="DisabledBrush" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#FFC4C4C4" Offset="0"/>
+            <GradientStop Color="#FFB7B7B7" Offset="0.7"/>
+            <GradientStop Color="#FFA2A2A2" Offset="1"/>
+        </LinearGradientBrush>
+
+        <Color x:Key="BorderBrushGradientColor1">#FF1D83BE</Color>
+        <Color x:Key="BorderBrushGradientColor2">#FF1ECDA7</Color>
+        <Color x:Key="BorderBrushSolidColor">#FF686868</Color>
+        <SolidColorBrush x:Key="DisabledBorderBrush" Color="#66000000"/>
+
+        <Style x:Key="RadioButtonStyle1" TargetType="{x:Type RadioButton}">
+            <Setter Property="Background" Value="{StaticResource ControlBackgroundNormal}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorderBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}" />
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusLine_Occupado}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="4 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="HoverOn">
+                                <ColorAnimation Storyboard.TargetProperty="(Shape.Stroke).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="background_radiobutton"
+                                    Duration="0:0:0.3" To="{StaticResource BorderBrushGradientColor1}"/>
+                                <ColorAnimation Storyboard.TargetProperty="(Shape.Stroke).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="background_radiobutton"
+                                    Duration="0:0:0.3" To="{StaticResource BorderBrushGradientColor2}"/>
+                            </Storyboard>
+                            <Storyboard x:Key="HoverOff">
+                                <ColorAnimation Storyboard.TargetProperty="(Shape.Stroke).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="background_radiobutton"
+                                    Duration="0:0:0.3" To="{StaticResource BorderBrushSolidColor}"/>
+                                <ColorAnimation Storyboard.TargetProperty="(Shape.Stroke).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="background_radiobutton"
+                                    Duration="0:0:0.3" To="{StaticResource BorderBrushSolidColor}"/>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <BulletDecorator Background="Transparent">
+                            <BulletDecorator.Bullet>
+                                <Grid Width="16" Height="16">
+                                    <Ellipse Height="16" Margin="1" x:Name="background_radiobutton" Width="14" Fill="{TemplateBinding Background}"
+                                        Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"/>
+                                    <Ellipse Height="6" Width="6" x:Name="bullet_checked_radiobutton" Fill="{StaticResource ControlActiveBorderBrush}" Opacity="0"
+                                        Stroke="Transparent" StrokeThickness="1"/>
+                                    <Ellipse Height="12" Width="12" x:Name="bullet_disabled_radiobutton" Opacity="0"
+                                        Fill="{StaticResource DisabledBrush}" Stroke="{StaticResource DisabledBorderBrush}" StrokeThickness="1"/>
+                                </Grid>
+                            </BulletDecorator.Bullet>
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" 
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                        </BulletDecorator>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="bullet_checked_radiobutton" Property="Opacity" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter TargetName="bullet_checked_radiobutton" Property="Opacity" Value="1"/>
+                                <Setter TargetName="bullet_checked_radiobutton" Property="Fill" Value="Transparent"/>
+                                <Setter TargetName="bullet_checked_radiobutton" Property="Stroke" Value="{StaticResource ControlActiveBorderBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bullet_disabled_radiobutton" Property="Opacity" Value="1"/>
+                                <Setter Property="Opacity" Value="0.72"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOn}"/>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard Storyboard="{StaticResource HoverOff}"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="ToggleButton_Occupado" TargetType="ToggleButton">
             <Setter Property="Background" Value="#FF1F3B53"/>
             <Setter Property="Foreground" Value="{StaticResource ControlForegroundWhite}"/>
@@ -322,6 +412,33 @@
                 </Rectangle>
             </Grid>
         </ControlTemplate>
+        <ControlTemplate x:Key="avaS3po" TargetType="{x:Type ContentControl}">
+            <Grid>
+                <Rectangle Height="Auto" VerticalAlignment="Stretch" Width="Auto" Stroke="#FF00F900">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="background/s3poAva.bmp" Stretch="Uniform"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="avaR2d2" TargetType="{x:Type ContentControl}">
+            <Grid>
+                <Rectangle Height="Auto" VerticalAlignment="Stretch" Width="Auto" Stroke="#FF00F900">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="background/r2d2Ava.bmp" Stretch="Uniform"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="avaBb8" TargetType="{x:Type ContentControl}">
+            <Grid>
+                <Rectangle Height="Auto" VerticalAlignment="Stretch" Width="Auto" Stroke="#FF00F900">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="background/bb8Ava.bmp" Stretch="Uniform"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
     </Window.Resources>
     <Grid>
         <Border Width="auto" Height="auto" BorderBrush="LimeGreen" BorderThickness="2"
@@ -330,8 +447,8 @@
                 <LinearGradientBrush>
                     <GradientBrush.GradientStops>
                         <GradientStopCollection>
-                            <GradientStop Color="#e7ebf7" Offset="0.0"></GradientStop>
-                            <GradientStop Color="#cee3ff" Offset="0.5"></GradientStop>
+                            <GradientStop Color="#FF010206" Offset="0.383"></GradientStop>
+                            <GradientStop Color="#FF0015EC" Offset="0.886"></GradientStop>
                         </GradientStopCollection>
                     </GradientBrush.GradientStops>
                 </LinearGradientBrush>
@@ -342,11 +459,20 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock x:Name="titul" Text="Title my Window" Padding="5" MouseLeftButtonDown="Titul_MouseLeftButtonDown"></TextBlock>
+                <TextBlock x:Name="titul" Padding="5" MouseLeftButtonDown="Titul_MouseLeftButtonDown">
+                    <TextBlock.Background>
+                        <ImageBrush/>
+                    </TextBlock.Background><Run Text="Title "/><InlineUIContainer>
+                        <Label x:Name="TitulArt" Content="Label" Height="24" Width="114">
+                            <Label.Background>
+                                <ImageBrush ImageSource="background/text2.png"/>
+                            </Label.Background>
+                        </Label>
+                    </InlineUIContainer><Run Text="my W"/><Run Text="i"/><Run Text="ndow"/></TextBlock>
                 <Grid Grid.Row="1" Background="#B5CBEF">
                     <Grid x:Name="grid">
                         <Grid.Background>
-                            <ImageBrush ImageSource="background/3.jpg" TileMode="FlipXY"/>
+                            <ImageBrush ImageSource="background/10.jpg" TileMode="FlipXY"/>
                         </Grid.Background>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -358,19 +484,11 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="160"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="startButon" Content="Start" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Width="74" Grid.Column="1" Margin="32,38,34,92" Height="20" Click="StartButon_Click"/>
                         <ProgressBar x:Name="status" Width="400" Height="28" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" />
                         <ProgressBar x:Name="statusMass" Margin="0,38,0,0" Width="400" Height="23" Value="1" Maximum="1.0" Style="{StaticResource Basic}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <Canvas x:Name="playArea" Grid.ColumnSpan="3" MouseMove="PlayArea_MouseMove" Grid.Column="1" >
                             <Canvas.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF42FF42"/>
-                                    <GradientStop Color="#FF304887" Offset="0.305"/>
-                                    <GradientStop Color="#FF26FF26" Offset="1"/>
-                                    <GradientStop Color="#FF222E55" Offset="0.715"/>
-                                    <GradientStop Color="#FF345AC1" Offset="0.052"/>
-                                    <GradientStop Color="#FF0B2599" Offset="0.974"/>
-                                </LinearGradientBrush>
+                                <ImageBrush ImageSource="background/11.jpg" Stretch="UniformToFill"/>
                             </Canvas.Background>
                             <StackPanel x:Name="human" Height="56" Canvas.Left="10" Canvas.Top="10" Width="53" RenderTransformOrigin="0.5,0.5" MouseDown="Human_MouseDown" >
                                 <StackPanel.RenderTransform>
@@ -383,19 +501,33 @@
                                 </StackPanel.RenderTransform>
                                 <ContentControl x:Name="myRobot" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="56" Template="{DynamicResource s3po}"/>
                             </StackPanel>
-                        </Canvas>
-                        <StackPanel Grid.Column="3" Grid.Row="1">
-                            <TextBlock TextWrapping="Wrap" Height="150">
-                                <TextBlock.Background>
-                                    <ImageBrush ImageSource="hero/box.png"/>
-                                </TextBlock.Background>
+                            <TextBlock x:Name="gameOver" TextWrapping="Wrap" Text="Game Over" Height="161" Width="502" Canvas.Left="210" Canvas.Top="139" FontSize="80" RenderTransformOrigin="0.5,0.5" FontFamily="Stencil" Visibility="Hidden">
+                                <TextBlock.Foreground>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFEEF909" Offset="0"/>
+                                        <GradientStop Color="#FFFF0E0E" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </TextBlock.Foreground>
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="14.425"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
                             </TextBlock>
-                        </StackPanel>
-                        <ToggleButton Style="{StaticResource ToggleButton_Occupado}" Margin="36,63,34,13" Grid.Column="1" Grid.Row="1"/>
+                        </Canvas>
+                        <StackPanel Grid.Column="3" Grid.Row="1"/>
+                        <ToggleButton Style="{StaticResource ToggleButton_Occupado}" Margin="32,33,38,43" Grid.Column="1" Grid.Row="1" Checked="ToggleButton_Checked"/>
+                        <RadioButton x:Name="radAct" Content="Radioactiv" Grid.Column="2" HorizontalAlignment="Left" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Style="{DynamicResource RadioButtonStyle1}" Height="18" Width="101" FontWeight="Bold" FontFamily="Showcard Gothic"/>
+                        <Label x:Name="boxLabel" Foreground="#FF5A1DDE"  Content="Box :" Grid.Column="2" HorizontalAlignment="Left" Margin="0,95,0,-10" Grid.Row="1" VerticalAlignment="Top" Width="137" FontFamily="Imprint MT Shadow" Height="65" FontSize="48"/>
+                        <TextBlock x:Name="countBox" Foreground="#FF5A1DDE" Grid.Column="2" HorizontalAlignment="Left" Margin="120,100,0,-1" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="91" FontSize="48" FontFamily="Imprint MT Shadow"/>
+                        <ContentControl x:Name="avatar" Content="ContentControl" Grid.Column="3" Grid.Row="1" Template="{DynamicResource avaBb8}"/>
 
                     </Grid>
                 </Grid>
-                <TextBlock Text="Footer" Padding="5" Grid.Row="2" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Text="PixelWars" Padding="5" Grid.Row="2" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Showcard Gothic"></TextBlock>
             </Grid>
         </Border>
     </Grid>

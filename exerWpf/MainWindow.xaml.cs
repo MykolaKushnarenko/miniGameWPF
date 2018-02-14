@@ -23,6 +23,7 @@ namespace exerWpf
     public partial class MainWindow : Window
     {
         private List<ContentControl> stackBox;
+        private List<ContentControl> stackEnemy;
         private bool humanCapture;
         private Random random;
         private Robotfactory fact;
@@ -31,6 +32,7 @@ namespace exerWpf
         private Proxy proxy;
         private Earth earth;
         private RobotCommand command;
+        private bool gameIsRun = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +50,7 @@ namespace exerWpf
         {
             random = new Random();
             stackBox = new List<ContentControl>();
+            stackEnemy = new List<ContentControl>();
             fact = new Robotfactory();
             robot = fact.GetRobot(random);
             GameHistory = new History();
@@ -71,14 +74,17 @@ namespace exerWpf
             if(type == "KiborgRobot")
             {
                 myRobot.Template = Resources["r2d2"] as ControlTemplate;
+                avatar.Template = Resources["avaR2d2"] as ControlTemplate;
             }
             else if(type == "SaiceRobot")
             {
                 myRobot.Template = Resources["s3po"] as ControlTemplate;
+                avatar.Template = Resources["avaS3po"] as ControlTemplate;
             }
             else
             {
                 myRobot.Template = Resources["bb8"] as ControlTemplate;
+                avatar.Template = Resources["avaBb8"] as ControlTemplate;
             }
         }
         private void AddBox()
@@ -91,7 +97,7 @@ namespace exerWpf
             Canvas.SetTop(box, random.Next(100, (int) playArea.ActualHeight - 100));
             playArea.Children.Add(box);
             stackBox.Add(box);
-            box.MouseEnter += EnemyMouseEntered;
+            box.MouseEnter += BoxMouseEntered;
 
         }
         private void AddEnemy()
@@ -104,7 +110,17 @@ namespace exerWpf
             AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 100),
                 random.Next((int)playArea.ActualHeight - 100), "(Canvas.Top)");
             playArea.Children.Add(enemy);
+            stackEnemy.Add(enemy);
+            enemy.MouseEnter += enemy_MouseEnter;
 
+        }
+
+        private void enemy_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (humanCapture)
+            {
+                GameIsOver();
+            }
         }
 
         private void AnimateEnemy(ContentControl enemy, double from, double to, string property)
@@ -122,7 +138,7 @@ namespace exerWpf
             storyboard.Begin();
         }
 
-        private void EnemyMouseEntered(object sender, MouseEventArgs e)
+        private void BoxMouseEntered(object sender, MouseEventArgs e)
         {
             if (humanCapture)
             {
@@ -146,6 +162,7 @@ namespace exerWpf
                 {
                     box = earth.GetBox()
                 };
+                //MessageBox.Show(String.Format("Price: {0} \rMass: {1} \rХотите подобрать ?",proxy.box.Price, proxy.box.Mass ), "My App", MessageBoxButton.YesNoCancel);
                 GameHistory.Save(robot.State(xHuman, yHuman));
                 robot.GetGrooz(proxy);
                 status.Value = robot.chargeOfRobot;
@@ -165,16 +182,17 @@ namespace exerWpf
             {
                 Point pointerPosition = e.GetPosition(null);
                 Point relativePosition = playArea.TransformToVisual(playArea).Transform(pointerPosition);
-                if ((Math.Abs(relativePosition.X - Canvas.GetLeft(human)) > human.ActualWidth * 2) ||
-                    (Math.Abs(relativePosition.Y - Canvas.GetTop(human)) > human.ActualHeight * 2))
+                if ((Math.Abs(relativePosition.X - Canvas.GetLeft(human)) > human.ActualWidth * 3) ||
+                    (Math.Abs(relativePosition.Y - Canvas.GetTop(human)) > human.ActualHeight * 3))
                 {
                     humanCapture = false;
                     human.IsHitTestVisible = true;
+
                 }
                 else
                 {
                     Canvas.SetLeft(human, relativePosition.X - human.ActualWidth / 2);
-                    Canvas.SetTop(human, relativePosition.Y - human.ActualHeight / 1);
+                    Canvas.SetTop(human, relativePosition.Y - human.ActualHeight / 0.8);
                 }
             }
         }
@@ -186,15 +204,8 @@ namespace exerWpf
         {
             humanCapture = true;
             human.IsHitTestVisible = false;
-        }
 
-        private void StartButon_Click(object sender, RoutedEventArgs e)
-        {
-            AddBox();
-            AddEnemy();
-            //MessageBox.Show("This MessageBox has extra options.\n\nHello, world?", "My App", MessageBoxButton.YesNoCancel);
         }
-
         private void Test_Click(object sender, RoutedEventArgs e)
         {
             command.Undo(GameHistory);
@@ -207,7 +218,40 @@ namespace exerWpf
             {
                 AddBox();
             }
+            if (e.Key == Key.A)
+            {
+                humanCapture = false;
+                human.IsHitTestVisible = true;
+            }
         }
 
+        private void ToggleButton_Checked(object sender, RoutedEventArgs e)
+        {
+            AddBox();
+            AddEnemy();
+        }
+
+        private void GameIsOver()
+        {
+            gameOver.Visibility = Visibility;
+            Canvas.SetLeft(human, 10);
+            Canvas.SetTop(human, 10);
+            ClearStackBoxOrEnemy(stackBox);
+            ClearStackBoxOrEnemy(stackEnemy);
+
+        }
+
+        private void ClearStackBoxOrEnemy(List<ContentControl> steckForClear)
+        {
+            if (steckForClear.Count != 0)
+            {
+                for (int i = 0; i < steckForClear.Count; i++)
+                {
+                    playArea.Children.Remove(steckForClear[i]);
+                }
+                steckForClear.Clear();
+            }
+            
+        }
     }
 }

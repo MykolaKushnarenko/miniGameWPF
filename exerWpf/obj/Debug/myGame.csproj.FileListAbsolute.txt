@@ -19,3 +19,5 @@ C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\myGame.exe
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\myGame.pdb
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\HelpWin.g.cs
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\HelpWin.baml
+C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\myGame.exe.CodeAnalysisLog.xml
+C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\myGame.exe.lastcodeanalysissucceeded

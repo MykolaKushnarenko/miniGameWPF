@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -142,21 +143,10 @@
     <Resource Include="hero\r2d2-gif.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="background\1.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="hero\bb82.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="background\2.jpg" />
-    <Resource Include="background\3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="hero\box.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="background\4.jpg" />
-    <Resource Include="background\5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="background\6.jpg" />
@@ -200,6 +190,25 @@
   <ItemGroup>
     <Resource Include="hero\ben.png" />
     <Resource Include="hero\dart.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\10.jpg" />
+    <Resource Include="background\11.jpg" />
+    <Resource Include="background\12.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\13.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\14.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\text2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\bb8Ava.bmp" />
+    <Resource Include="background\r2d2Ava.bmp" />
+    <Resource Include="background\s3poAva.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
