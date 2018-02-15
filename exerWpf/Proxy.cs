@@ -26,18 +26,15 @@ namespace Game
                 }
                 else
                 {
-                    robot.chargeOfRobot -= 25;
                     return box.Open();
                 }
             }
             else if (box.NeedDecoding == false)
             {
-                robot.chargeOfRobot -= 25;
                 return box.Open();
             }
             else
             {
-                robot.chargeOfRobot -= 25;
                 return 0;
             }
         }

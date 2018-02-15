@@ -14,7 +14,7 @@ namespace Game
         private const int standbat = 100;
         private const int standgrooz = 30;
         public string Name { get; private set; }
-        public int chargeOfRobot = 0;
+        public double chargeOfRobot = 0;
         public int sumOfCargo = 0;
         public int MaxMassCargo { get; }
         private Proxy proxy;

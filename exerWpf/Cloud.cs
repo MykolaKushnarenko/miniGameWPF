@@ -13,7 +13,7 @@ namespace Game
             get;
             private set;
         }
-        public int Battary
+        public double Battary
         {
             get;
             private set;
@@ -29,7 +29,7 @@ namespace Game
             private set;
         }
 
-        public Cloud(int sum, int battary,double x, double y)
+        public Cloud(int sum, double battary,double x, double y)
         {
             this.Battary = battary;
             this.Cash = sum;

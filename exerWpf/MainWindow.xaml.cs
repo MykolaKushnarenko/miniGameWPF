@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Game;
 using System.Windows.Media.Animation;
+using System.Windows.Threading;
 
 namespace exerWpf
 {
@@ -33,6 +35,7 @@ namespace exerWpf
         private Earth earth;
         private RobotCommand command;
         private bool gameIsRun = false;
+        private DispatcherTimer enemyTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +46,16 @@ namespace exerWpf
             InitSysRobot();
             GetTemplRobot();
             InitStatus();
+            enemyTimer = new DispatcherTimer();
+            enemyTimer.Tick += enemyTimer_Tick;
+            enemyTimer.Interval = TimeSpan.FromSeconds(5);
+
+        }
+
+        private void enemyTimer_Tick(object sender, EventArgs e)
+        {
+            AddBox();
+            AddEnemy();
 
         }
 
@@ -106,9 +119,9 @@ namespace exerWpf
             {
                 Template = (random.Next(1, 100) > 50) ? Resources["enemyVayd"] as ControlTemplate : Resources["enemyBen"] as ControlTemplate
             };
-            AnimateEnemy(enemy, 0, playArea.ActualWidth - 100, "(Canvas.Left)");
-            AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 100),
-                random.Next((int)playArea.ActualHeight - 100), "(Canvas.Top)");
+            AnimateEnemy(enemy, 0, playArea.ActualWidth - 70, "(Canvas.Left)");
+            AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 70),
+                random.Next((int)playArea.ActualHeight - 70), "(Canvas.Top)");
             playArea.Children.Add(enemy);
             stackEnemy.Add(enemy);
             enemy.MouseEnter += enemy_MouseEnter;
@@ -165,13 +178,19 @@ namespace exerWpf
                 //MessageBox.Show(String.Format("Price: {0} \rMass: {1} \rХотите подобрать ?",proxy.box.Price, proxy.box.Mass ), "My App", MessageBoxButton.YesNoCancel);
                 GameHistory.Save(robot.State(xHuman, yHuman));
                 robot.GetGrooz(proxy);
-                status.Value = robot.chargeOfRobot;
-                statusMass.Value = robot.sumOfCargo;
-                GetPosBox(indexEnemy);
+                radAct.IsChecked = (proxy.box.Toxic == true) ? IsEnabled : IsSealed;
+                DelBoxFromPlayArea(indexEnemy);
+                AddBox();
             }
         }
 
-        private void GetPosBox(int indexForDel)
+        private void StatusUpdate()
+        {
+            status.Value = robot.chargeOfRobot;
+            statusMass.Value = robot.sumOfCargo;
+        }
+
+        private void DelBoxFromPlayArea(int indexForDel)
         {
             playArea.Children.Remove(stackBox[indexForDel]);
             stackBox.RemoveAt(indexForDel);
@@ -191,6 +210,8 @@ namespace exerWpf
                 }
                 else
                 {
+                    robot.chargeOfRobot -= 0.35;
+                    status.Value = robot.chargeOfRobot;
                     Canvas.SetLeft(human, relativePosition.X - human.ActualWidth / 2);
                     Canvas.SetTop(human, relativePosition.Y - human.ActualHeight / 0.8);
                 }
@@ -227,8 +248,8 @@ namespace exerWpf
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
+            enemyTimer.Start();
             AddBox();
-            AddEnemy();
         }
 
         private void GameIsOver()
@@ -238,6 +259,7 @@ namespace exerWpf
             Canvas.SetTop(human, 10);
             ClearStackBoxOrEnemy(stackBox);
             ClearStackBoxOrEnemy(stackEnemy);
+            enemyTimer.Stop();
 
         }
 

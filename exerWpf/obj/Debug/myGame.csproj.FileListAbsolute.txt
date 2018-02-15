@@ -1,10 +1,6 @@
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\myGame.exe.config
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\myGame.exe
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\myGame.pdb
-C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\CircularProgressBar.dll
-C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\WinFormAnimation.dll
-C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\CircularProgressBar.xml
-C:\Users\BanCry\source\repos\exerWpf\exerWpf\bin\Debug\WinFormAnimation.xml
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\myGame.csprojResolveAssemblyReference.cache
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\MainWindow.g.cs
 C:\Users\BanCry\source\repos\exerWpf\exerWpf\obj\Debug\App.g.cs
