@@ -76,12 +76,12 @@
     <Compile Include="HelpWin.xaml.cs">
       <DependentUpon>HelpWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Proxy.cs" />
-    <Compile Include="Robot.cs" />
+    <Compile Include="box\Proxy.cs" />
+    <Compile Include="robot\Robot.cs" />
     <Compile Include="RobotCommand.cs" />
-    <Compile Include="Robotfactory.cs" />
-    <Compile Include="SaiceRobot.cs" />
-    <Compile Include="WorkerRobot.cs" />
+    <Compile Include="robot\Robotfactory.cs" />
+    <Compile Include="robot\SaiceRobot.cs" />
+    <Compile Include="robot\WorkerRobot.cs" />
     <Page Include="HelpWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,19 +94,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="box.cs" />
+    <Compile Include="box\box.cs" />
     <Compile Include="Cloud.cs" />
-    <Compile Include="Earth.cs" />
+    <Compile Include="box\Earth.cs" />
     <Compile Include="History.cs" />
-    <Compile Include="IBox.cs" />
-    <Compile Include="KiborgRobot.cs" />
+    <Compile Include="box\IBox.cs" />
+    <Compile Include="robot\KiborgRobot.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -203,5 +202,6 @@
     <Resource Include="background\r2d2Ava.bmp" />
     <Resource Include="background\s3poAva.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

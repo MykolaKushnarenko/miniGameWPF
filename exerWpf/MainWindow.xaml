@@ -519,7 +519,7 @@
                             </TextBlock>
                         </Canvas>
                         <StackPanel Grid.Column="3" Grid.Row="1"/>
-                        <ToggleButton Style="{StaticResource ToggleButton_Occupado}" Margin="32,33,38,43" Grid.Column="1" Grid.Row="1" Checked="ToggleButton_Checked"/>
+                        <ToggleButton x:Name="startBut" Style="{StaticResource ToggleButton_Occupado}" Margin="32,33,38,43" Grid.Column="1" Grid.Row="1" Checked="ToggleButton_Checked"/>
                         <RadioButton x:Name="radAct" Content="Radioactiv" Grid.Column="2" HorizontalAlignment="Left" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Style="{DynamicResource RadioButtonStyle1}" Height="18" Width="101" FontWeight="Bold" FontFamily="Showcard Gothic"/>
                         <Label x:Name="boxLabel" Foreground="#FF5A1DDE"  Content="Box :" Grid.Column="2" HorizontalAlignment="Left" Margin="0,95,0,-10" Grid.Row="1" VerticalAlignment="Top" Width="137" FontFamily="Imprint MT Shadow" Height="65" FontSize="48"/>
                         <TextBlock x:Name="countBox" Foreground="#FF5A1DDE" Grid.Column="2" HorizontalAlignment="Left" Margin="120,100,0,-1" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="91" FontSize="48" FontFamily="Imprint MT Shadow"/>

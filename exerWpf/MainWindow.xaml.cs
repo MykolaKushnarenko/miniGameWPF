@@ -36,6 +36,7 @@ namespace exerWpf
         private RobotCommand command;
         private bool gameIsRun = false;
         private DispatcherTimer enemyTimer;
+        private Storyboard storyboardHuman;
         public MainWindow()
         {
             InitializeComponent();
@@ -47,12 +48,12 @@ namespace exerWpf
             GetTemplRobot();
             InitStatus();
             enemyTimer = new DispatcherTimer();
-            enemyTimer.Tick += enemyTimer_Tick;
+            enemyTimer.Tick += EnemyTimer_Tick;
             enemyTimer.Interval = TimeSpan.FromSeconds(5);
 
         }
 
-        private void enemyTimer_Tick(object sender, EventArgs e)
+        private void EnemyTimer_Tick(object sender, EventArgs e)
         {
             AddBox();
             AddEnemy();
@@ -72,6 +73,7 @@ namespace exerWpf
             GameHistory.Save(robot.State(xHuman, yHuman));
             earth = new Earth();
             command = new RobotCommand(robot);
+            storyboardHuman  = new Storyboard() { AutoReverse = false };
         }
 
         private void InitStatus()
@@ -100,6 +102,16 @@ namespace exerWpf
                 avatar.Template = Resources["avaBb8"] as ControlTemplate;
             }
         }
+
+        private double GetPosHumanX()
+        {
+            return Canvas.GetLeft(human);
+        }
+
+        private double GetPosHumanY()
+        {
+            return Canvas.GetTop(human);
+        }
         private void AddBox()
         {
             ContentControl box = new ContentControl
@@ -124,11 +136,11 @@ namespace exerWpf
                 random.Next((int)playArea.ActualHeight - 70), "(Canvas.Top)");
             playArea.Children.Add(enemy);
             stackEnemy.Add(enemy);
-            enemy.MouseEnter += enemy_MouseEnter;
+            enemy.MouseEnter += Enemy_MouseEnter;
 
         }
 
-        private void enemy_MouseEnter(object sender, MouseEventArgs e)
+        private void Enemy_MouseEnter(object sender, MouseEventArgs e)
         {
             if (humanCapture)
             {
@@ -149,14 +161,15 @@ namespace exerWpf
             Storyboard.SetTargetProperty(animation, new PropertyPath(property));
             storyboard.Children.Add(animation);
             storyboard.Begin();
+            
         }
 
         private void BoxMouseEntered(object sender, MouseEventArgs e)
         {
             if (humanCapture)
             {
-                double xHuman = Canvas.GetLeft(human);
-                double yHuman = Canvas.GetTop(human);
+                double xHuman = GetPosHumanX();
+                double yHuman = GetPosHumanY();
                 int indexEnemy = -1;
                 double minDistance = 10000;
                 for (int i = 0; i < stackBox.Count; i++)
@@ -248,19 +261,46 @@ namespace exerWpf
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            enemyTimer.Start();
-            AddBox();
+            if ((GetPosHumanX() == 10) && (GetPosHumanY() == 10) && (storyboardHuman.Children.Count == 0))
+            {
+                enemyTimer.Start();
+                AddBox();
+            }
+            else if ((GetPosHumanX() == 10) && (GetPosHumanY() == 10))
+            {
+                storyboardHuman.Stop();
+                storyboardHuman.Children.RemoveAt(0);
+                Canvas.SetLeft(human, 10);
+                Canvas.SetTop(human, 10);
+                enemyTimer.Start();
+                AddBox();
+            }
         }
 
         private void GameIsOver()
         {
             gameOver.Visibility = Visibility;
-            Canvas.SetLeft(human, 10);
-            Canvas.SetTop(human, 10);
+            HumanMoveToStart(GetPosHumanX(),10,"(Canvas.Left)");
+            HumanMoveToStart(GetPosHumanY(),10,"(Canvas.Top)");
             ClearStackBoxOrEnemy(stackBox);
             ClearStackBoxOrEnemy(stackEnemy);
             enemyTimer.Stop();
+            startBut.IsChecked = IsSealed;
 
+        }
+
+        private void HumanMoveToStart(double from, double to, string property)
+        {
+            DoubleAnimation animation = new DoubleAnimation()
+            {
+                From = from,
+                To = to,
+                Duration = new Duration(TimeSpan.FromSeconds(3))
+            };
+            Storyboard.SetTarget(animation, human);
+            Storyboard.SetTargetProperty(animation, new PropertyPath(property));
+            storyboardHuman.Children.Add(animation);
+            storyboardHuman.Begin();
         }
 
         private void ClearStackBoxOrEnemy(List<ContentControl> steckForClear)
