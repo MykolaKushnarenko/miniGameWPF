@@ -12,7 +12,7 @@
          <Members>
           <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-02-16 12:44:03Z" FixCategory="NonBreaking">
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-02-16 16:06:42Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\BanCry\source\repos\exerWpf\exerWpf\robot" File="Robot.cs" Line="17">'Robot.Robot()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Robot..ctor()&#xD;&#xA;Robot.GetButtery():Int32</Issue>
              <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\BanCry\source\repos\exerWpf\exerWpf\robot" File="Robot.cs" Line="17">'Robot.Robot()' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Robot..ctor()&#xD;&#xA;Robot.Grooz():Int32</Issue>
             </Message>

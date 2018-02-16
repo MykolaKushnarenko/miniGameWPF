@@ -484,8 +484,23 @@
                             <ColumnDefinition/>
                             <ColumnDefinition Width="160"/>
                         </Grid.ColumnDefinitions>
-                        <ProgressBar x:Name="status" Width="400" Height="28" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" />
-                        <ProgressBar x:Name="statusMass" Margin="0,38,0,0" Width="400" Height="23" Value="1" Maximum="1.0" Style="{StaticResource Basic}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        <ProgressBar x:Name="status" Width="442" Height="26" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="121,53,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" >
+                            <ProgressBar.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleY="-0.064"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform Y="-0.249"/>
+                                </TransformGroup>
+                            </ProgressBar.RenderTransform>
+                        </ProgressBar>
+                        <ProgressBar x:Name="statusMass" Margin="115,84,0,0" Width="447" Height="23" Value="1" Maximum="1.0" Style="{StaticResource Basic}" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <StackPanel Grid.Column="2" HorizontalAlignment="Left" Height="118" Margin="0,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="586">
+                            <StackPanel.Background>
+                                <ImageBrush ImageSource="background/hud_v2.png"/>
+                            </StackPanel.Background>
+                        </StackPanel>
                         <Canvas x:Name="playArea" Grid.ColumnSpan="3" MouseMove="PlayArea_MouseMove" Grid.Column="1" >
                             <Canvas.Background>
                                 <ImageBrush ImageSource="background/11.jpg" Stretch="UniformToFill"/>
@@ -520,10 +535,19 @@
                         </Canvas>
                         <StackPanel Grid.Column="3" Grid.Row="1"/>
                         <ToggleButton x:Name="startBut" Style="{StaticResource ToggleButton_Occupado}" Margin="32,33,38,43" Grid.Column="1" Grid.Row="1" Checked="ToggleButton_Checked"/>
-                        <RadioButton x:Name="radAct" Content="Radioactiv" Grid.Column="2" HorizontalAlignment="Left" Margin="0,77,0,0" Grid.Row="1" VerticalAlignment="Top" Style="{DynamicResource RadioButtonStyle1}" Height="18" Width="101" FontWeight="Bold" FontFamily="Showcard Gothic"/>
-                        <Label x:Name="boxLabel" Foreground="#FF5A1DDE"  Content="Box :" Grid.Column="2" HorizontalAlignment="Left" Margin="0,95,0,-10" Grid.Row="1" VerticalAlignment="Top" Width="137" FontFamily="Imprint MT Shadow" Height="65" FontSize="48"/>
-                        <TextBlock x:Name="countBox" Foreground="#FF5A1DDE" Grid.Column="2" HorizontalAlignment="Left" Margin="120,100,0,-1" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="91" FontSize="48" FontFamily="Imprint MT Shadow"/>
-                        <ContentControl x:Name="avatar" Content="ContentControl" Grid.Column="3" Grid.Row="1" Template="{DynamicResource avaBb8}"/>
+                        <RadioButton x:Name="radAct" Content="Radioactiv" Grid.Column="2" HorizontalAlignment="Left" Margin="115,20,0,0" Grid.Row="1" VerticalAlignment="Top" Style="{DynamicResource RadioButtonStyle1}" Height="17" Width="127" FontWeight="Bold" FontFamily="Showcard Gothic"/>
+                        <Label x:Name="boxLabel" Foreground="Red"  Content="Box :" Grid.Column="2" HorizontalAlignment="Left" Margin="115,100,0,-10" VerticalAlignment="Top" Width="127" FontFamily="Imprint MT Shadow" Height="60" FontSize="48" RenderTransformOrigin="1.493,0.392" Grid.Row="1"/>
+                        <TextBlock x:Name="countBox" Foreground="#FF1DDE37" Grid.Column="2" HorizontalAlignment="Left" Margin="237,105,0,-6" Grid.Row="1" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Height="51" Width="91" FontSize="48" FontFamily="Imprint MT Shadow">
+                            <TextBlock.Background>
+                                <ImageBrush/>
+                            </TextBlock.Background>
+                        </TextBlock>
+                        <ContentControl x:Name="avatar" Grid.Column="3" Grid.Row="1" Template="{DynamicResource avaBb8}"/>
+                        <Label Content="" Grid.Column="2" HorizontalAlignment="Left" Margin="591,7,0,0" VerticalAlignment="Top" Height="136" Width="160" Grid.ColumnSpan="2" Grid.Row="1">
+                            <Label.Background>
+                                <ImageBrush ImageSource="background/ramk.png"/>
+                            </Label.Background>
+                        </Label>
 
                     </Grid>
                 </Grid>

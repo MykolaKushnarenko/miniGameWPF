@@ -202,6 +202,11 @@
     <Resource Include="background\r2d2Ava.bmp" />
     <Resource Include="background\s3poAva.bmp" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="background\hud_v2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\ramk.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

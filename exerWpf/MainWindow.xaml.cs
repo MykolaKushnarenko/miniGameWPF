@@ -194,6 +194,7 @@ namespace exerWpf
                 radAct.IsChecked = (proxy.box.Toxic == true) ? IsEnabled : IsSealed;
                 DelBoxFromPlayArea(indexEnemy);
                 AddBox();
+                StatusUpdate();
             }
         }
 
@@ -295,7 +296,7 @@ namespace exerWpf
             {
                 From = from,
                 To = to,
-                Duration = new Duration(TimeSpan.FromSeconds(3))
+                Duration = new Duration(TimeSpan.FromSeconds(1))
             };
             Storyboard.SetTarget(animation, human);
             Storyboard.SetTargetProperty(animation, new PropertyPath(property));
