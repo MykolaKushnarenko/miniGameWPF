@@ -114,10 +114,24 @@ namespace exerWpf
         }
         private void AddBox()
         {
-            ContentControl box = new ContentControl
+            ContentControl box;
+            int isBox = random.Next(1, 1000);
+            if (isBox > 30)
             {
-                Template = Resources["boxForRob"] as ControlTemplate
-            };
+                box = new ContentControl
+                {
+                    Template =  Resources["boxForRob"] as ControlTemplate
+                };
+                box.Name = "box";
+            }
+            else
+            {
+                box = new ContentControl
+                {
+                    Template = Resources["helthBox"] as ControlTemplate
+                };
+                box.Name = "helth";
+            }
             Canvas.SetLeft(box, random.Next(100, (int)playArea.ActualWidth - 100));
             Canvas.SetTop(box, random.Next(100, (int) playArea.ActualHeight - 100));
             playArea.Children.Add(box);
@@ -184,14 +198,21 @@ namespace exerWpf
                     }
 
                 }
-                proxy = new Proxy(robot)
+                if (stackBox[indexEnemy].Name == "helth")
                 {
-                    box = earth.GetBox()
-                };
-                //MessageBox.Show(String.Format("Price: {0} \rMass: {1} \rХотите подобрать ?",proxy.box.Price, proxy.box.Mass ), "My App", MessageBoxButton.YesNoCancel);
-                GameHistory.Save(robot.State(xHuman, yHuman));
-                robot.GetGrooz(proxy);
-                radAct.IsChecked = (proxy.box.Toxic == true) ? IsEnabled : IsSealed;
+                    robot.chargeOfRobot += 100;
+                }
+                else
+                {
+                    proxy = new Proxy(robot)
+                    {
+                        box = earth.GetBox()
+                    };
+                    //MessageBox.Show(String.Format("Price: {0} \rMass: {1} \rХотите подобрать ?",proxy.box.Price, proxy.box.Mass ), "My App", MessageBoxButton.YesNoCancel);
+                    GameHistory.Save(robot.State(xHuman, yHuman));
+                    robot.GetGrooz(proxy);
+                    radAct.IsChecked = (proxy.box.Toxic == true) ? IsEnabled : IsSealed;
+                }
                 DelBoxFromPlayArea(indexEnemy);
                 AddBox();
                 StatusUpdate();

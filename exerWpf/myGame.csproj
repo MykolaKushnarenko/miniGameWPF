@@ -208,5 +208,23 @@
   <ItemGroup>
     <Resource Include="background\ramk.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="hero\helth_box.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\helth_v2_blue.png" />
+    <Resource Include="background\helth_v2_green.png" />
+    <Resource Include="background\helth_v2_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\helth_v2_white_v2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\bb8Ava_v2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\r2d2Ava_v2.png" />
+    <Resource Include="background\s3poAva_v2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
