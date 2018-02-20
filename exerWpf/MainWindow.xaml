@@ -419,6 +419,15 @@
                 </Rectangle>
             </Grid>
         </ControlTemplate>
+        <ControlTemplate x:Key="shooter" TargetType="{x:Type ContentControl}">
+            <Grid>
+                <Rectangle HorizontalAlignment="Left" Height="68" Stroke="{x:Null}" VerticalAlignment="Top" Width="45">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="hero/shooter.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Grid>
+        </ControlTemplate>
         <ControlTemplate x:Key="avaS3po" TargetType="{x:Type ContentControl}">
             <Grid Margin="0,0,-4,0">
                 <Ellipse HorizontalAlignment="Left" Height="130" Stroke="White" VerticalAlignment="Top" Width="144" Margin="0,10,0,0">
@@ -605,21 +614,6 @@
                                 <ImageBrush/>
                             </TextBlock.Background>
                         </TextBlock>
-                        <MediaElement Name="myMediaElement" Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="436,24,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" >
-                            <MediaElement.Triggers>
-                                <EventTrigger RoutedEvent="MediaElement.Loaded">
-                                    <EventTrigger.Actions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <MediaTimeline Source="C:\Users\BanCry\source\repos\exerWpf\exerWpf\hero\bb82.gif" Storyboard.TargetName="myMediaElement"  
-                                                               RepeatBehavior="Forever" />
-
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger.Actions>
-                                </EventTrigger>
-                            </MediaElement.Triggers>
-                        </MediaElement>
 
                     </Grid>
                 </Grid>

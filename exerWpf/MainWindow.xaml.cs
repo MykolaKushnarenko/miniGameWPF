@@ -141,10 +141,29 @@ namespace exerWpf
         }
         private void AddEnemy()
         {
-            ContentControl enemy = new ContentControl
+            int randEnemy = random.Next(1, 1000);
+            ContentControl enemy;
+            if (randEnemy < 300)
             {
-                Template = (random.Next(1, 100) > 50) ? Resources["enemyVayd"] as ControlTemplate : Resources["enemyBen"] as ControlTemplate
-            };
+                enemy = new ContentControl
+                {
+                    Template = Resources["enemyVayd"] as ControlTemplate
+                };
+            }
+            else if (randEnemy > 300 && randEnemy < 600)
+            {
+                enemy = new ContentControl
+                {
+                    Template = Resources["enemyBen"] as ControlTemplate
+                };
+            }
+            else
+            {
+                enemy = new ContentControl
+                {
+                    Template = Resources["shooter"] as ControlTemplate
+                };
+            }
             AnimateEnemy(enemy, 0, playArea.ActualWidth - 70, "(Canvas.Left)");
             AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 70),
                 random.Next((int)playArea.ActualHeight - 70), "(Canvas.Top)");
