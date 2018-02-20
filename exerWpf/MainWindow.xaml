@@ -569,7 +569,7 @@
                                 </Label.RenderTransform>
                             </Label>
                         </StackPanel>
-                        <Canvas x:Name="playArea" Grid.ColumnSpan="3" MouseMove="PlayArea_MouseMove" Grid.Column="1" >
+                        <Canvas x:Name="playArea" Grid.ColumnSpan="3" MouseMove="PlayArea_MouseMove" Grid.Column="1" MouseLeave="playArea_MouseLeave" >
                             <Canvas.Background>
                                 <ImageBrush ImageSource="background/11.jpg" Stretch="UniformToFill"/>
                             </Canvas.Background>

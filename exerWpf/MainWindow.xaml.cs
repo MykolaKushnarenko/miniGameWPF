@@ -55,7 +55,6 @@ namespace exerWpf
 
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
-            AddBox();
             AddEnemy();
 
         }
@@ -279,6 +278,7 @@ namespace exerWpf
         {
             humanCapture = true;
             human.IsHitTestVisible = false;
+            this.Cursor = Cursors.None;
 
         }
         private void Test_Click(object sender, RoutedEventArgs e)
@@ -306,6 +306,7 @@ namespace exerWpf
             {
                 enemyTimer.Start();
                 AddBox();
+                AddEnemy();
             }
             else if ((GetPosHumanX() == 10) && (GetPosHumanY() == 10))
             {
@@ -314,7 +315,7 @@ namespace exerWpf
                 Canvas.SetLeft(human, 10);
                 Canvas.SetTop(human, 10);
                 enemyTimer.Start();
-                AddBox();
+
             }
         }
 
@@ -327,6 +328,7 @@ namespace exerWpf
             ClearStackBoxOrEnemy(stackEnemy);
             enemyTimer.Stop();
             startBut.IsChecked = IsSealed;
+            this.Cursor = Cursors.Arrow;
 
         }
 
@@ -355,6 +357,14 @@ namespace exerWpf
                 steckForClear.Clear();
             }
             
+        }
+
+        private void playArea_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (humanCapture)
+            {
+                GameIsOver();
+            }
         }
     }
 }
