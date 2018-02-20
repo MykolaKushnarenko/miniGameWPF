@@ -600,6 +600,26 @@
                                     </TransformGroup>
                                 </TextBlock.RenderTransform>
                             </TextBlock>
+                            <TextBlock x:Name="lvlShow" Canvas.Left="546" TextWrapping="Wrap" Text="0" Canvas.Top="169" FontSize="80" Height="117" Width="190" RenderTransformOrigin="0.5,0.5" FontFamily="Stencil">
+                                <TextBlock.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="21.305"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                            <Label x:Name="lvllebl" Content="LEVEL" Canvas.Left="287" Canvas.Top="76" FontSize="80" RenderTransformOrigin="0.5,0.5" Height="139" Width="267" FontFamily="Stencil">
+                                <Label.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform Angle="20.503"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Label.RenderTransform>
+                            </Label>
                         </Canvas>
                         <StackPanel Grid.Column="3" Grid.Row="1"/>
                         <ToggleButton x:Name="startBut" Style="{StaticResource ToggleButton_Occupado}" Margin="41,35,33,38" Grid.Column="3" Grid.Row="1" Checked="ToggleButton_Checked"/>

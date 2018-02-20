@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -24,6 +25,11 @@ namespace exerWpf
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int level = 0;
+        private int countBoxs = 0;
+        private int countEnemy = 0;
+        private int enemyInLvl = 0;
+        private int boxIsGet = 0;
         private List<ContentControl> stackBox;
         private List<ContentControl> stackEnemy;
         private bool humanCapture;
@@ -37,6 +43,7 @@ namespace exerWpf
         private bool gameIsRun = false;
         private DispatcherTimer enemyTimer;
         private Storyboard storyboardHuman;
+        private DispatcherTimer winTimer;
         public MainWindow()
         {
             InitializeComponent();
@@ -50,15 +57,28 @@ namespace exerWpf
             enemyTimer = new DispatcherTimer();
             enemyTimer.Tick += EnemyTimer_Tick;
             enemyTimer.Interval = TimeSpan.FromSeconds(5);
+            winTimer = new DispatcherTimer();
+            winTimer.Tick += LevelUp;
+            winTimer.Interval = TimeSpan.FromSeconds(2);
+            levelInfo();
 
+        }
+
+        private void LevelUp(object sender, EventArgs e)
+        {
+                lvlShow.Visibility = Visibility.Hidden;
+                lvllebl.Visibility = Visibility.Hidden;
         }
 
         private void EnemyTimer_Tick(object sender, EventArgs e)
         {
             AddEnemy();
-
         }
 
+        private void levelInfo()
+        {
+            enemyInLvl += level * countEnemy + 1;
+        }
         private void InitSysRobot()
         {
             random = new Random();
@@ -73,6 +93,9 @@ namespace exerWpf
             earth = new Earth();
             command = new RobotCommand(robot);
             storyboardHuman  = new Storyboard() { AutoReverse = false };
+            level = 1;
+            countEnemy = 1;
+            boxIsGet = 7;
         }
 
         private void InitStatus()
@@ -140,36 +163,38 @@ namespace exerWpf
         }
         private void AddEnemy()
         {
-            int randEnemy = random.Next(1, 1000);
-            ContentControl enemy;
-            if (randEnemy < 300)
+            if (enemyInLvl > stackEnemy.Count)
             {
-                enemy = new ContentControl
+                int randEnemy = random.Next(1, 1000);
+                ContentControl enemy;
+                if (randEnemy < 300)
                 {
-                    Template = Resources["enemyVayd"] as ControlTemplate
-                };
-            }
-            else if (randEnemy > 300 && randEnemy < 600)
-            {
-                enemy = new ContentControl
+                    enemy = new ContentControl
+                    {
+                        Template = Resources["enemyVayd"] as ControlTemplate
+                    };
+                }
+                else if (randEnemy > 300 && randEnemy < 600)
                 {
-                    Template = Resources["enemyBen"] as ControlTemplate
-                };
-            }
-            else
-            {
-                enemy = new ContentControl
+                    enemy = new ContentControl
+                    {
+                        Template = Resources["enemyBen"] as ControlTemplate
+                    };
+                }
+                else
                 {
-                    Template = Resources["shooter"] as ControlTemplate
-                };
+                    enemy = new ContentControl
+                    {
+                        Template = Resources["shooter"] as ControlTemplate
+                    };
+                }
+                AnimateEnemy(enemy, 0, playArea.ActualWidth - 70, "(Canvas.Left)");
+                AnimateEnemy(enemy, random.Next((int) playArea.ActualHeight - 70),
+                    random.Next((int) playArea.ActualHeight - 70), "(Canvas.Top)");
+                playArea.Children.Add(enemy);
+                stackEnemy.Add(enemy);
+                enemy.MouseEnter += Enemy_MouseEnter;
             }
-            AnimateEnemy(enemy, 0, playArea.ActualWidth - 70, "(Canvas.Left)");
-            AnimateEnemy(enemy, random.Next((int)playArea.ActualHeight - 70),
-                random.Next((int)playArea.ActualHeight - 70), "(Canvas.Top)");
-            playArea.Children.Add(enemy);
-            stackEnemy.Add(enemy);
-            enemy.MouseEnter += Enemy_MouseEnter;
-
         }
 
         private void Enemy_MouseEnter(object sender, MouseEventArgs e)
@@ -182,18 +207,19 @@ namespace exerWpf
 
         private void AnimateEnemy(ContentControl enemy, double from, double to, string property)
         {
-            Storyboard storyboard = new Storyboard() {AutoReverse = true, RepeatBehavior = RepeatBehavior.Forever};
+            float speed = 6 - (level / 2);
+            Storyboard storyboard = new Storyboard() { AutoReverse = true, RepeatBehavior = RepeatBehavior.Forever };
             DoubleAnimation animation = new DoubleAnimation()
             {
                 From = from,
                 To = to,
-                Duration = new Duration(TimeSpan.FromSeconds(random.Next(4, 6)))
+                Duration = new Duration(TimeSpan.FromSeconds(speed))
             };
-            Storyboard.SetTarget(animation,enemy);
+            Storyboard.SetTarget(animation, enemy);
             Storyboard.SetTargetProperty(animation, new PropertyPath(property));
             storyboard.Children.Add(animation);
             storyboard.Begin();
-            
+
         }
 
         private void BoxMouseEntered(object sender, MouseEventArgs e)
@@ -230,6 +256,8 @@ namespace exerWpf
                     GameHistory.Save(robot.State(xHuman, yHuman));
                     robot.GetGrooz(proxy);
                     radAct.IsChecked = (proxy.box.Toxic == true) ? IsEnabled : IsSealed;
+                    countBoxs++;
+                    IsWin();
                 }
                 DelBoxFromPlayArea(indexEnemy);
                 AddBox();
@@ -237,10 +265,27 @@ namespace exerWpf
             }
         }
 
+        private void IsWin()
+        {
+            if (countBoxs == boxIsGet)
+            {
+                countBoxs = 0;
+                winTimer.Start();
+                ClearStackBoxOrEnemy(stackEnemy);
+                level++;
+                boxIsGet++;
+                levelInfo();
+                lvlShow.Text = level.ToString();
+                lvlShow.Visibility = Visibility.Visible;
+                lvllebl.Visibility = Visibility.Visible;
+
+            }
+        }
         private void StatusUpdate()
         {
             status.Value = robot.chargeOfRobot;
             statusMass.Value = robot.sumOfCargo;
+            countBox.Text = countBoxs.ToString();
         }
 
         private void DelBoxFromPlayArea(int indexForDel)
@@ -307,6 +352,8 @@ namespace exerWpf
                 enemyTimer.Start();
                 AddBox();
                 AddEnemy();
+                lvlShow.Visibility = Visibility.Hidden;
+                lvllebl.Visibility = Visibility.Hidden;
             }
             else if ((GetPosHumanX() == 10) && (GetPosHumanY() == 10))
             {
@@ -315,6 +362,11 @@ namespace exerWpf
                 Canvas.SetLeft(human, 10);
                 Canvas.SetTop(human, 10);
                 enemyTimer.Start();
+                level = 1;
+                boxIsGet = 7;
+                countBoxs = 0;
+                levelInfo();
+                gameOver.Visibility = Visibility.Hidden;
 
             }
         }
