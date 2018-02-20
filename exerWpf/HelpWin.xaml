@@ -216,6 +216,19 @@
                     </ContentControl>
                     <ContentControl Content="ContentControl" HorizontalAlignment="Left" Margin="-4,0,0,0" Grid.Row="2" VerticalAlignment="Top" Width="110" RenderTransformOrigin="0.3,0.375" Height="117" Template="{DynamicResource benDark}"/>
                     <ContentControl Content="ContentControl" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Template="{DynamicResource dartV}" Height="117" Width="122"/>
+                    <Label Content="" HorizontalAlignment="Left" Margin="10,21,0,0" Grid.Row="1" VerticalAlignment="Top" Height="69" Width="86">
+                        <Label.Background>
+                            <ImageBrush ImageSource="hero/helth_box.png"/>
+                        </Label.Background>
+                    </Label>
+                    <Label Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="21,5,0,0" Grid.Row="2" VerticalAlignment="Top" Height="112" Width="73" Foreground="{x:Null}">
+                        <Label.Background>
+                            <ImageBrush ImageSource="hero/shooter.png"/>
+                        </Label.Background>
+                    </Label>
+                    <Label Content="game robots" Grid.Column="3" HorizontalAlignment="Left" Margin="90,24,0,0" VerticalAlignment="Top" Foreground="#FF21E00E" FontSize="36" FontFamily="Showcard Gothic"/>
+                    <Label Content="box for robot" Grid.Column="3" HorizontalAlignment="Left" Margin="90,43,0,0" Grid.Row="1" VerticalAlignment="Top" Foreground="#FF21E00E" FontSize="30" FontFamily="Showcard Gothic"/>
+                    <Label Content="enemy of player" Grid.Column="3" HorizontalAlignment="Left" Margin="90,38,0,0" Grid.Row="2" VerticalAlignment="Top" Foreground="#FF21E00E" FontSize="30" FontFamily="Showcard Gothic" />
                 </Grid>
                 <TextBlock Padding="5" Grid.Row="2" HorizontalAlignment="Center"><InlineUIContainer>
                         <Button Content="Start!" Width="94" Style="{DynamicResource InformButton}" FontFamily="Rockwell Extra Bold" Click="Button_Click" Height="26">

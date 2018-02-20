@@ -516,7 +516,7 @@
                             <ColumnDefinition Width="160"/>
                         </Grid.ColumnDefinitions>
 
-                        <ProgressBar x:Name="status" Width="307" Height="38" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="72,55,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" >
+                        <ProgressBar x:Name="status" Width="309" Height="38" Value="1" Maximum="1.0" Style="{StaticResource VolumeMeter}" Grid.Column="2" Grid.Row="1" VerticalAlignment="Top" Margin="70,55,0,0" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" >
                             <ProgressBar.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform ScaleY="1.001"/>
@@ -593,7 +593,7 @@
                             </TextBlock>
                         </Canvas>
                         <StackPanel Grid.Column="3" Grid.Row="1"/>
-                        <ToggleButton x:Name="startBut" Style="{StaticResource ToggleButton_Occupado}" Margin="39,16,35,57" Grid.Column="3" Grid.Row="1" Checked="ToggleButton_Checked"/>
+                        <ToggleButton x:Name="startBut" Style="{StaticResource ToggleButton_Occupado}" Margin="41,35,33,38" Grid.Column="3" Grid.Row="1" Checked="ToggleButton_Checked"/>
                         <RadioButton x:Name="radAct" Content="Radioactiv" Grid.Column="2" HorizontalAlignment="Left" Margin="52,24,0,0" Grid.Row="1" VerticalAlignment="Top" Style="{DynamicResource RadioButtonStyle1}" Height="20" Width="128" FontWeight="Bold" FontFamily="Showcard Gothic"/>
                         <Rectangle Grid.Column="2" HorizontalAlignment="Left" Height="52" Margin="221,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="60" RenderTransformOrigin="0.417,0.404">
                             <Rectangle.Fill>
@@ -605,6 +605,21 @@
                                 <ImageBrush/>
                             </TextBlock.Background>
                         </TextBlock>
+                        <MediaElement Name="myMediaElement" Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="436,24,0,0" Grid.Row="1" VerticalAlignment="Top" Width="100" >
+                            <MediaElement.Triggers>
+                                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <MediaTimeline Source="C:\Users\BanCry\source\repos\exerWpf\exerWpf\hero\bb82.gif" Storyboard.TargetName="myMediaElement"  
+                                                               RepeatBehavior="Forever" />
+
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                            </MediaElement.Triggers>
+                        </MediaElement>
 
                     </Grid>
                 </Grid>

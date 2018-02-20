@@ -88,7 +88,7 @@ namespace exerWpf {
             return;
             case 2:
             
-            #line 221 "..\..\HelpWin.xaml"
+            #line 231 "..\..\HelpWin.xaml"
             ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.Button_Click);
             
             #line default
