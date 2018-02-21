@@ -229,5 +229,8 @@
   <ItemGroup>
     <Resource Include="hero\shooter.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="background\closeBut.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

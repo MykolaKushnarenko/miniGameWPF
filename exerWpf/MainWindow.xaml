@@ -508,7 +508,19 @@
                                 <ImageBrush ImageSource="background/text2.png"/>
                             </Label.Background>
                         </Label>
-                    </InlineUIContainer><Run Text="my W"/><Run Text="i"/><Run Text="ndow"/></TextBlock>
+                    </InlineUIContainer><Run Text="my W"/><Run Text="i"/><Run Text="ndow"/><InlineUIContainer>
+                        <Button  Content="X" Width="32" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="620,0,0,0" Height="23" FontSize="20" FontFamily="Modern No. 20" Click="Button_Click">
+                            <Button.Foreground>
+                                <ImageBrush/>
+                            </Button.Foreground>
+                            <Button.Background>
+                                <ImageBrush ImageSource="background/closeBut.png"/>
+                            </Button.Background>
+                            <Button.BorderBrush>
+                                <ImageBrush/>
+                            </Button.BorderBrush>
+                        </Button>
+                    </InlineUIContainer></TextBlock>
                 <Grid Grid.Row="1" Background="#B5CBEF">
                     <Grid x:Name="grid">
                         <Grid.Background>

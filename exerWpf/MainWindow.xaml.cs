@@ -40,7 +40,6 @@ namespace exerWpf
         private Proxy proxy;
         private Earth earth;
         private RobotCommand command;
-        private bool gameIsRun = false;
         private DispatcherTimer enemyTimer;
         private Storyboard storyboardHuman;
         private DispatcherTimer winTimer;
@@ -201,7 +200,8 @@ namespace exerWpf
         {
             if (humanCapture)
             {
-                GameIsOver();
+                robot.chargeOfRobot -= 100;
+                StatusUpdate();
             }
         }
 
@@ -367,6 +367,8 @@ namespace exerWpf
                 countBoxs = 0;
                 levelInfo();
                 gameOver.Visibility = Visibility.Hidden;
+                AddBox();
+                AddEnemy();
 
             }
         }
@@ -417,6 +419,11 @@ namespace exerWpf
             {
                 GameIsOver();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
